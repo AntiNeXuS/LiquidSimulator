@@ -1,32 +1,27 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TileTypes.cs" company="">
+// <copyright file="LiquidTypes.cs" company="">
 //   
 // </copyright>
 // <summary>
-//   The tile types.
+//   The liquid types.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace LiquidSimulator.Base
+namespace LiquidSimulator.Blocks.Liquids
 {
     /// <summary>
-    /// The tile types.
+    /// The liquid types.
     /// </summary>
-    public enum TileTypes
+    public enum LiquidTypes
     {
         /// <summary>
-        /// The solid.
+        /// The water.
         /// </summary>
-        Solid, 
+        Water,
 
         /// <summary>
-        /// The liquid.
+        /// The lava
         /// </summary>
-        Liquid, 
-
-        /// <summary>
-        /// The air.
-        /// </summary>
-        Air
+        Lava
     }
 }

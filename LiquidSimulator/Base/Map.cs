@@ -7,18 +7,18 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Windows.Media.Media3D;
+
+using LiquidSimulator.Blocks;
+using LiquidSimulator.Interfaces;
+
 namespace LiquidSimulator.Base
 {
-    using System.Collections.Generic;
-    using System.Windows.Media.Media3D;
-
-    using LiquidSimulator.Blocks;
-    using LiquidSimulator.Interfaces;
-
     /// <summary>
     /// The map.
     /// </summary>
-    public class Map : IMap
+    public class Map : IMap, IUpdatable
     {
         #region Constructors and Destructors
 
@@ -36,7 +36,7 @@ namespace LiquidSimulator.Base
         /// </param>
         public Map(int sizeX = 10, int sizeY = 10, int sizeZ = 10)
         {
-            Blocks = new List<Block>();
+            Blocks = new Dictionary<Point3D, Block>();
 
             for (var x = 0; x < sizeX; x++)
             {
@@ -44,13 +44,14 @@ namespace LiquidSimulator.Base
                 {
                     for (var z = 0; z < sizeZ; z++)
                     {
+                        var position = new Point3D(x, y, z);
                         if (z == 0)
                         {
-                            Blocks.Add(new Solid(this, new Point3D(x, y, z)));
+                            Blocks.Add(position, new Solid(this, position));
                         }
                         else
                         {
-                            Blocks.Add(new Air(this, new Point3D(x, y, z)));
+                            Blocks.Add(position, new Air(this, position));
                         }
                     }
                 }
@@ -64,11 +65,19 @@ namespace LiquidSimulator.Base
         /// <summary>
         /// Gets the blocks.
         /// </summary>
-        public List<Block> Blocks { get; private set; }
+        public IDictionary<Point3D, Block> Blocks { get; private set; }
+
+        public IDictionary<Point3D, Block> UpdatingBlocks { get; private set; }
 
         #endregion
 
         #region Public Methods and Operators
+
+        public void Replace(Point3D position, Block newBlock)
+        {
+            Blocks.Remove(position);
+            Blocks.Add(position, newBlock);
+        }
 
         /// <summary>
         /// The update.
@@ -77,7 +86,7 @@ namespace LiquidSimulator.Base
         {
             foreach (var block in Blocks)
             {
-                block.Update();
+                block.Value.Update();
             }
         }
 

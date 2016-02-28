@@ -11,7 +11,7 @@ namespace LiquidSimulator.Blocks
 {
     using System.Windows.Media.Media3D;
 
-    using LiquidSimulator.Interfaces;
+    using Interfaces;
 
     /// <summary>
     /// The block.
@@ -34,9 +34,9 @@ namespace LiquidSimulator.Blocks
         /// </param>
         protected Block(IMap owner, int id, Point3D position)
         {
-            this.owner = owner;
-            this.Id = id;
-            this.Position = position;
+            Owner = owner;
+            Id = id;
+            Position = position;
         }
 
         #endregion
@@ -61,7 +61,7 @@ namespace LiquidSimulator.Blocks
         /// <summary>
         /// Gets the owner.
         /// </summary>
-        public IMap owner { get; private set; }
+        public IMap Owner { get; private set; }
 
         #endregion
 

@@ -7,12 +7,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Windows.Media.Media3D;
+
+using LiquidSimulator.Blocks;
+
 namespace LiquidSimulator.Interfaces
 {
-    using System.Collections.Generic;
-
-    using LiquidSimulator.Blocks;
-
     /// <summary>
     /// The Map interface.
     /// </summary>
@@ -23,7 +24,11 @@ namespace LiquidSimulator.Interfaces
         /// <summary>
         /// Gets the blocks.
         /// </summary>
-        List<Block> Blocks { get; }
+        IDictionary<Point3D, Block> Blocks { get; }
+
+        IDictionary<Point3D, Block> UpdatingBlocks { get; }
+
+        void Replace(Point3D position, Block newBlock);
 
         #endregion
     }

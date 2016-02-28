@@ -43,16 +43,15 @@
     <Compile Include="Base\Chunk.cs" />
     <Compile Include="Base\Map.cs" />
     <Compile Include="Base\Neightbours.cs" />
-    <Compile Include="Base\Tile.cs" />
-    <Compile Include="Base\TileTypes.cs" />
-    <Compile Include="Base\WaterTile.cs" />
+    <Compile Include="Base\BasePhysicsModel.cs" />
     <Compile Include="Blocks\Air.cs" />
     <Compile Include="Blocks\Block.cs" />
-    <Compile Include="Blocks\Liquid.cs" />
+    <Compile Include="Blocks\Liquids\Liquid.cs" />
+    <Compile Include="Blocks\Liquids\LiquidPhysics.cs" />
     <Compile Include="Blocks\Solid.cs" />
     <Compile Include="Interfaces\IMap.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />
-    <Compile Include="LiquidTypes.cs" />
+    <Compile Include="Blocks\Liquids\LiquidTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

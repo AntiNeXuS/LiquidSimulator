@@ -7,18 +7,17 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Windows.Media.Media3D;
+
+using FluentAssertions;
+using NUnit.Framework;
+
+using LiquidSimulator.Base;
+using LiquidSimulator.Blocks;
+using LiquidSimulator.Blocks.Liquids;
+
 namespace LiquidSimulatorTests.Base
 {
-    using System.Linq;
-    using System.Windows.Media.Media3D;
-
-    using FluentAssertions;
-
-    using LiquidSimulator.Base;
-    using LiquidSimulator.Blocks;
-
-    using NUnit.Framework;
-
     /// <summary>
     /// The map tests.
     /// </summary>
@@ -38,8 +37,8 @@ namespace LiquidSimulatorTests.Base
             map.Should().NotBeNull();
             map.Blocks.Should().NotBeNull();
             map.Blocks.Should().NotBeNull();
-            (map.Blocks.First(x => x.Position == new Point3D(0, 0, 0)) is Solid).Should().BeTrue();
-            (map.Blocks.First(x => x.Position == new Point3D(0, 0, 1)) is Air).Should().BeTrue();
+            (map.Blocks[new Point3D(0, 0, 0)] is Solid).Should().BeTrue();
+            (map.Blocks[new Point3D(0, 0, 1)] is Air).Should().BeTrue();
         }
 
         /// <summary>
@@ -49,10 +48,10 @@ namespace LiquidSimulatorTests.Base
         public void CreateWaterSourceTest()
         {
             var map = new Map();
-            map.Blocks.Remove(map.Blocks.First(x => x.Position == new Point3D(5, 5, 1)));
-            map.Blocks.Add(new Liquid(map, new Point3D(5, 5, 1), true));
+            var liquidPoint = new Point3D(5, 5, 1);
+            map.Replace(liquidPoint, new Liquid(map, liquidPoint, LiquidTypes.Water,  true));
 
-            var liquidTile = map.Blocks.First(x => x.Position == new Point3D(5, 5, 1));
+            var liquidTile = map.Blocks[liquidPoint];
             (liquidTile is Liquid).Should().BeTrue();
             var liquid = liquidTile as Liquid;
             liquid.IsSource.Should().BeTrue();
@@ -66,10 +65,10 @@ namespace LiquidSimulatorTests.Base
         public void UpdateWaterSourceTest()
         {
             var map = new Map();
-            map.Blocks.Remove(map.Blocks.First(x => x.Position == new Point3D(5, 5, 1)));
-            map.Blocks.Add(new Liquid(map, new Point3D(5, 5, 1), true));
+            var liquidPoint = new Point3D(5, 5, 1);
+            map.Replace(liquidPoint, new Liquid(map, liquidPoint, LiquidTypes.Water,  true));
 
-            var liquid = map.Blocks.First(x => x.Position == new Point3D(5, 5, 1)) as Liquid;
+            var liquid = map.Blocks[liquidPoint] as Liquid;
             liquid.Should().NotBeNull();
             liquid.Level.Should().Be(15);
 
